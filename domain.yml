@@ -1,0 +1,261 @@
+version: "2.0"
+
+intents:
+  - greet
+  - request_dayoff_rest
+  - request_halfoff_resign
+  - reason
+  - affirm
+  - inform_offdate
+  - inform_utime
+  - thank
+  - stop
+  - deny
+  # - ask_remind_call:
+  #     triggers: action_set_reminder
+  # - EXTERNAL_reminder:
+  #     triggers: action_react_to_reminder
+  
+entities:
+  - docuType
+  - time
+  - utime
+  #  이중 엔티티 추출은 추후 반영
+  # - startdate  # - enddate
+
+slots:
+  docuType:
+    type: categorical
+    values:
+        - "연차"
+        - "반차"
+        - "휴직"
+        - "사직"
+    influence_conversation: false
+
+  startDate:
+    type: text
+    influence_conversation: false
+
+  endDate:
+    type: text
+    influence_conversation: false
+
+  utime:
+    type: categorical
+    values:
+        - "오전"
+        - "오후"
+    influence_conversation: false
+
+  reason: 
+    type: text
+    influence_conversation: false
+
+
+responses:
+  utter_greet:
+    - text: "반가워요! 저는 업무비서 챗봇 도우리입니다! 무엇을 도와드릴까요?"
+    - text: "안녕하세요! 저는 업무비서 챗봇 도우리입니다! 무엇을 도와드릴까요? :)"
+ 
+  utter_ask_docuType:
+    - text: "작성하실 문서종류를 말씀해주세요
+              \n(ex: 연차,반차, 사직, 휴직)"
+
+  utter_docuType:
+    - condition:
+        - type: slot
+          name: docuType
+          value: "연차"
+      text: "연차 신청 도와드리겠습니다."     
+
+    - condition:
+        - type: slot
+          name: docuType
+          value: "반차"
+      text: "반차 신청 도와드리겠습니다."
+
+    - condition:
+        - type: slot
+          name: docuType
+          value: "휴직"
+      text: "휴직 신청 도와드리겠습니다."
+
+    - condition:
+        - type: slot
+          name: docuType
+          value: "사직"
+      text: "사직 신청 도와드리겠습니다."
+
+  utter_ask_startDate:
+    # - custom:
+    #     blocks:
+    #     - type: section
+    #       text:
+    #         text: "연차 시작일을 선택해주세요"
+    #         type: mrkdwn
+    #       accessory:
+    #         type: datepicker
+    #         initial_date: '2022-08-08'
+    #         placeholder:
+    #           type: plain_text
+    #           text: Select a date
+    - condition:
+        - type: slot
+          name: docuType
+          value: "연차"
+      text: "연차 시작일을 말씀해주세요."
+
+    - condition:
+        - type: slot
+          name: docuType
+          value: "반차"
+      text: "반차를 사용하실 날짜를 말씀해주세요."  
+
+    - condition:
+        - type: slot
+          name: docuType
+          value: "휴직"
+      text: "휴직 시작일을 말씀해주세요."  
+
+    - condition:
+        - type: slot
+          name: docuType
+          value: "사직"
+      text: "퇴사 예정일을 말씀해주세요."   
+
+  utter_ask_endDate:
+    - condition:
+        - type: slot
+          name: docuType
+          value: "연차"
+      text: "연차 종료일을 말씀해주세요."
+
+    - condition:
+        - type: slot
+          name: docuType
+          value: "휴직"
+      text: "휴직 종료일을 말씀해주세요."  
+
+  utter_ask_utime:
+    - text: "반차를 사용하실 시간을 선택해주세요."
+      buttons:
+      - title: "오전"
+        payload: '/inform_utime{{"utime":"오전"}}'
+      - title: "오후"
+        payload: '/inform_utime{{"utime":"오후"}}'
+
+  utter_ask_reason:
+    - text: "사유를 말씀해주세요."
+
+  utter_success:
+    - text: "{docuType} 제출이 완료되었습니다."
+
+  utter_slots_values:
+    - condition:
+        - type: slot
+          name: docuType
+          value: "연차"
+      text: "결재자 승인 완료시까지 대기하여 주시기 바랍니다.\n
+            문서종류: {docuType}\n
+            연차 시작일: {startDate}\n
+            연차 종료일: {endDate}\n
+            사유: {reason}\n"
+
+    - condition:
+        - type: slot
+          name: docuType
+          value: "반차"
+      text: "결재자 승인 완료시까지 대기하여 주시기 바랍니다.\n
+            문서종류: {docuType}\n
+            반차일자: {startDate}\n
+            오전/오후: {utime}\n
+            사유: {reason}\n"
+
+    - condition:
+        - type: slot
+          name: docuType
+          value: "휴직"
+      text: "결재자 승인 완료시까지 대기하여 주시기 바랍니다.\n
+            문서종류: {docuType}\n
+            휴직 시작일자: {startDate}\n
+            휴직 종료일자: {endDate}\n
+            사유: {reason}\n"
+
+    - condition:
+        - type: slot
+          name: docuType
+          value: "사직"
+      text: "결재자 승인 완료시까지 대기하여 주시기 바랍니다.\n
+            문서종류: {docuType}\n
+            사직일자: {startDate}\n
+            사유: {reason}\n"
+  
+  utter_ask_stop:
+    - text: "문서작성을 종료할까요?"
+  utter_stop:
+    - text: "문서작성이 중단되었습니다. 다음에 또 이용해주세요!"
+  utter_bye:
+    - text: "다음에 또 이용해주세요!"
+  utter_default:
+    - text: "죄송합니다. 입력하신 정보를 이해하지 못했습니다. 다른 정보를 입력해주세요."
+  utter_wrong_workscope:
+    - text: "죄송합니다. 해당 업무는 지원하는 기능이 아닙니다.\n 
+              지원하는 기능 : 연차, 반차, 사직, 휴직"
+  utter_restart:
+    - text: "재시작됐습니다."
+
+actions:
+  - validate_dayoff_rest_form
+  - validate_halfoff_resign_form
+  - submit_form
+  - action_default_fallback
+  - action_react_to_reminder
+  - action_set_reminder
+
+forms:
+  dayoff_rest_form:
+    ignored_intents:
+    - greet
+    
+    required_slots:
+      docuType: 
+        - type: from_entity
+          entity: docuType
+
+      startDate:
+        - type: from_entity
+          entity: time
+
+      endDate:
+        - type: from_entity
+          entity: time
+
+      reason:
+        - type: from_text
+
+  halfoff_resign_form:
+    ignored_intents:
+    - greet
+    
+    required_slots:
+      docuType: 
+        - type: from_entity
+          entity: docuType
+
+      startDate:
+        - type: from_entity
+          entity: time
+
+      utime:
+        - type: from_entity
+          entity: utime
+
+      reason:
+        - type: from_text
+
+
+# 세션종료 (수동세션시작 : /session_start)
+session_config:
+  session_expiration_time: 5  # 비활성 시간을 분 단위로 정의 
+  carry_over_slots_to_new_session: true # 기존슬롯을 새 세션으로 이월해야 하는지 여부 결정 

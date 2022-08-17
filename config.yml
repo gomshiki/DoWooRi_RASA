@@ -1,0 +1,30 @@
+version: "2.0"
+
+language: ko
+
+pipeline:
+  - name: SpacyNLP
+    model: "ko_core_news_sm"
+  - name: custom_tokenizer
+    # intent_tokenization_flag: True
+    # intent_split_symbol: "+"
+  - name: RegexFeaturizer
+  - name: LexicalSyntacticFeaturizer
+  - name: CountVectorsFeaturizer
+  # - name: DucklingEntityExtractor
+  #   url: http://localhost:8000
+  #   dimensions: ["time", "number"]
+  - name: DIETClassifier
+    epochs: 100
+  - name: EntitySynonymMapper
+  - name: FallbackClassifier
+    threshold: 0.7
+
+policies:
+  - name: TEDPolicy
+    epochs: 100
+  - name: AugmentedMemoizationPolicy
+  - name: RulePolicy
+    core_fallback_threshold: 0.4
+    core_fallback_action_name: "action_default_fallback"
+    enable_fallback_prediction: True

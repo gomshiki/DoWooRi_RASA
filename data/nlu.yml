@@ -1,0 +1,164 @@
+version: "2.0"
+nlu:
+
+- intent: greet
+  examples: |
+    - 안녕하세요
+    - 안녕
+    - 하이
+    - 헤이
+    - 저기요
+    - 반가워
+    - 안뇽
+    - 방가방가
+    
+- intent: request_dayoff_rest
+  examples: |
+    - [연차](docuType)
+    - [연차](docuType) 쓸래
+    - [연차](docuType) 쓰고싶어
+    - [연차](docuType)써줘 
+    - [연차](docuType) 사용하고 싶어 
+    - 나 [연차](docuType) 쓸 예정이야
+    - 나 [연차](docuType) 쓸래
+    - 사용하고 싶어 [연차](docuType)
+    - 사용할래 [연차](docuType)
+    - 써줘 [연차](docuType)
+    - 쓸래 [연차](docuType)
+    - [연차](docuType) 사용할래
+    - [연차](docuType)쓸 예정이야
+    - [연차](docuType)예정이야
+    - [연차](docuType)제출하려고
+    - 육아 [휴직](docuType) 할래
+    - [휴직](docuType)
+    - [휴직](docuType) 쓸래
+    - [휴직](docuType) 쓰고싶어
+    - [휴직](docuType)써줘 
+    - [휴직](docuType) 사용하고 싶어 
+    - 나 [휴직](docuType) 쓸 예정이야
+    - 나 [휴직](docuType) 쓸래
+    - 사용하고 싶어 [휴직](docuType)
+    - 사용할래 [휴직](docuType)
+    - 써줘 [휴직](docuType)
+    - 쓸래 [휴직](docuType)
+    - [휴직](docuType) 사용할래
+    - [휴직](docuType)쓸 예정이야
+    - [휴직](docuType)예정이야
+    - [휴직](docuType)제출하려고
+
+- intent: request_halfoff_resign
+  examples: |
+    - [반차](docuType)
+    - [반차](docuType) 쓸래
+    - [반차](docuType) 쓰고싶어
+    - [반차](docuType)써줘 
+    - [반차](docuType) 사용하고 싶어 
+    - 나 [반차](docuType) 쓸 예정이야
+    - 나 [반차](docuType) 쓸래
+    - 사용하고 싶어 [반차](docuType)
+    - 사용할래 [반차](docuType)
+    - 써줘 [반차](docuType)
+    - 쓸래 [반차](docuType)
+    - [반차](docuType) 사용할래
+    - [반차](docuType)쓸 예정이야
+    - [반차](docuType)예정이야
+    - [반차](docuType)제출하려고
+    - [사직](docuType)
+    - [사직](docuType) 쓸래
+    - [사직](docuType) 쓰고싶어
+    - [사직](docuType)써줘 
+    - [사직](docuType) 사용하고 싶어 
+    - 나 [사직](docuType) 쓸 예정이야
+    - 나 [사직](docuType) 쓸래
+    - 사용하고 싶어 [사직](docuType)
+    - 사용할래 [사직](docuType)
+    - 써줘 [사직](docuType)
+    - 쓸래 [사직](docuType)
+    - [사직](docuType) 사용할래
+    - [사직](docuType)쓸 예정이야
+    - [사직](docuType)예정이야
+    - [사직](docuType)제출하려고
+
+- intent: reason
+  examples: |
+    - 개인사정
+    - 환갑잔치
+    - 결혼식
+    - 장례식
+    - 제사
+    - 가족여행
+
+- intent: affirm
+  examples: |
+    - 응
+    - 맞아
+    - 응응
+    - 해줘
+    - 음.. 맞아
+    - 정확해
+    - 응 맞아
+    - 확인했어
+    - 어
+    - 좋아 
+
+- regex: time
+  examples: | 
+    - \d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])
+
+- intent: inform_offdate
+  examples: |
+    - [2022-9-1](time)
+    - [2022-12-31](time)
+
+- intent: inform_utime
+  examples: |
+    - [오전](utime)
+    - [오후](utime)
+
+- intent: thank
+  examples: |
+     - 음 고마워
+     - 고마워
+     - ㅇㅇ 고마워
+     - 응 고마워
+     - 고마워 안녕
+     - 어 고마워
+     - 감사합니다
+     - 좋아
+     - 감사합니다 안녕
+     - 고생했어
+     - 음 알았어 고마워
+     - 땡큐
+     - 감사
+     - 고마워요
+
+- intent: stop
+  examples: |
+    - 그만
+    - 그만하자
+    - 그만할래
+    - 종료
+    - 종료해줘
+    - 멈춰줘
+    - 멈춰
+    - 끝내줘
+
+- intent: deny
+  examples: |
+    - 그거 아닌데
+    - 아니
+    - 그거 아니야 
+    - 아니야
+    - 엥 아니
+    - 아니요
+    - 아닌것같아
+    - 아닌데
+    - 잘못 입력했어
+
+- intent: ask_remind_call
+  examples: |
+    - [연차](docuType)승인 알림 부탁해
+    - [반차](docuType)승인 알림 부탁해
+    - [사직](docuType)승인 알림 부탁해
+    - [휴직](docuType)승인 알림 부탁해
+

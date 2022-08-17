@@ -1,0 +1,58 @@
+version: "2.0"
+stories:
+
+  # 연차&휴직
+  - story: stop dayoff_rest form + continue
+    steps:
+      - intent: request_dayoff_rest
+      - action: utter_docuType
+      - action: dayoff_rest_form
+      - active_loop: dayoff_rest_form
+      - intent: stop
+      - action: utter_ask_stop
+      - intent: deny
+      - action: dayoff_rest_form  
+      - active_loop: null
+      - action: utter_success
+      - action: utter_slots_values
+      - action: submit_form
+
+  - story: stop dayoff_rest form + stop
+    steps:
+      - intent: request_dayoff_rest
+      - action: utter_docuType
+      - action: dayoff_rest_form
+      - active_loop: dayoff_rest_form  
+      - intent: stop
+      - action: utter_ask_stop
+      - intent: affirm
+      - action: utter_stop
+      - active_loop: null 
+
+  # 반차&사직
+  - story: stop halfoff_resign form + continue
+    steps:
+      - intent: request_halfoff_resign
+      - action: utter_docuType
+      - action: halfoff_resign_form
+      - active_loop: halfoff_resign_form
+      - intent: stop
+      - action: utter_ask_stop
+      - intent: deny
+      - action: halfoff_resign_form  
+      - active_loop: null
+      - action: utter_success
+      - action: utter_slots_values
+      - action: submit_form
+
+  - story: stop half form + stop
+    steps:
+      - intent: request_halfoff_resign
+      - action: utter_docuType
+      - action: halfoff_resign_form
+      - active_loop: halfoff_resign_form  
+      - intent: stop
+      - action: utter_ask_stop
+      - intent: affirm
+      - action: utter_stop
+      - active_loop: null 
