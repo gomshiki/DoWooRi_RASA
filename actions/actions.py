@@ -1,5 +1,5 @@
 from dateutil.parser import parse
-from datetime import datetime
+from datetime import datetime, timedelta
 from dateutil.relativedelta import *
 from rasa_sdk.forms import FormValidationAction
 # import uuid
@@ -12,10 +12,12 @@ from rasa_sdk.executor import CollectingDispatcher
 import requests
 from rasa_sdk.events import ReminderScheduled
 from rasa_sdk.events import UserUtteranceReverted
-        
+from rasa_sdk.events import Restarted
+
 def request_rpa_api(docuType, startDate, endDate, utime, reason):
     
     datas ={
+            # "Id": str(uuid.uuid4()), #개체 고유식별자
             "docuType": docuType,
             "startDate": startDate,
             "endDate": endDate,
@@ -36,7 +38,6 @@ def request_rpa_api(docuType, startDate, endDate, utime, reason):
     except requests.exceptions.HTTPError as e:
             raise SystemExit(e)
     return response
-
 
 
 # 폼 제출 action
@@ -262,9 +263,8 @@ class ActionSetReminder(Action):
     ) -> List[Dict[Text,Any]]:
         
         dispatcher.utter_message("10초뒤 알림기능이 설정되었습니다.")
-        date=datetime.datetime.now() + datetime.timedelta(seconds=10) # hours=2
-        entities=tracker.latest.messate.get("entities")
-        
+        date=datetime.now() + timedelta(seconds=10) # hours=2
+        entities=tracker.latest_message.get("entities")
         reminder = ReminderScheduled(
             "EXTERNAL_reminder",
             trigger_date_time= date,
@@ -289,8 +289,19 @@ class ActionReactToReminder(Action):
         domain: Dict[Text,Any],
     ) -> List[Dict[Text,Any]]:
         
-        docuType=next(tracker.get_latest_entity_values("docuType"),"someone")
-        dispatcher.utter_message(f"{docuType} 승인이 완료되었습니다!")
+        # docuType = tracker.get_slot("docuType")
+        # docuType = next(tracker.get_latest_entity_values("docuType"),"someone")
+        dispatcher.utter_message(f"기안문 확인 알람입니다!! \n\n 결재현황을 확인해주세요!")
         
         return []
     
+class ActionRestarted(Action):
+
+    def name(self) -> Text:
+        return "action_restart"   
+    
+    async def run(
+        self, dispatcher, tracker: Tracker, domain: Dict[Text, Any]
+        ) -> List[Dict[Text, Any]]:
+
+        return [Restarted()]

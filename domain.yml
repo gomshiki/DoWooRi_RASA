@@ -11,17 +11,19 @@ intents:
   - thank
   - stop
   - deny
-  # - ask_remind_call:
-  #     triggers: action_set_reminder
-  # - EXTERNAL_reminder:
-  #     triggers: action_react_to_reminder
+  - name
+  - help
+  - feel
+  - uncertain
+  - remind_call:
+      triggers: action_set_reminder
+  - EXTERNAL_reminder:
+      triggers: action_react_to_reminder
   
 entities:
   - docuType
   - time
   - utime
-  #  이중 엔티티 추출은 추후 반영
-  # - startdate  # - enddate
 
 slots:
   docuType:
@@ -62,6 +64,9 @@ responses:
     - text: "작성하실 문서종류를 말씀해주세요
               \n(ex: 연차,반차, 사직, 휴직)"
 
+  utter_ask_muldoc:
+    - text: "요청하신 문서 중 하나만 입력해주세요"
+
   utter_docuType:
     - condition:
         - type: slot
@@ -88,54 +93,48 @@ responses:
       text: "사직 신청 도와드리겠습니다."
 
   utter_ask_startDate:
-    # - custom:
-    #     blocks:
-    #     - type: section
-    #       text:
-    #         text: "연차 시작일을 선택해주세요"
-    #         type: mrkdwn
-    #       accessory:
-    #         type: datepicker
-    #         initial_date: '2022-08-08'
-    #         placeholder:
-    #           type: plain_text
-    #           text: Select a date
     - condition:
         - type: slot
           name: docuType
           value: "연차"
-      text: "연차 시작일을 말씀해주세요."
+      text: "연차 시작일을 말씀해주세요.\n
+            \nex) 2022-08-23 "
 
     - condition:
         - type: slot
           name: docuType
           value: "반차"
-      text: "반차를 사용하실 날짜를 말씀해주세요."  
+      text: "반차를 사용하실 날짜를 말씀해주세요.\n
+            \nex) 2022-08-23 "  
 
     - condition:
         - type: slot
           name: docuType
           value: "휴직"
-      text: "휴직 시작일을 말씀해주세요."  
+      text: "휴직 시작일을 말씀해주세요.\n
+            \nex) 2022-08-23 "  
 
     - condition:
         - type: slot
           name: docuType
           value: "사직"
-      text: "퇴사 예정일을 말씀해주세요."   
+      text: "퇴사 예정일을 말씀해주세요.\n
+            \nex) 2022-08-23 "   
 
   utter_ask_endDate:
     - condition:
         - type: slot
           name: docuType
           value: "연차"
-      text: "연차 종료일을 말씀해주세요."
+      text: "연차 종료일을 말씀해주세요.\n
+            \nex) 2022-08-23 "
 
     - condition:
         - type: slot
           name: docuType
           value: "휴직"
-      text: "휴직 종료일을 말씀해주세요."  
+      text: "휴직 종료일을 말씀해주세요.\n
+            \nex) 2022-08-23 "  
 
   utter_ask_utime:
     - text: "반차를 사용하실 시간을 선택해주세요."
@@ -157,39 +156,39 @@ responses:
           name: docuType
           value: "연차"
       text: "결재자 승인 완료시까지 대기하여 주시기 바랍니다.\n
-            문서종류: {docuType}\n
-            연차 시작일: {startDate}\n
-            연차 종료일: {endDate}\n
-            사유: {reason}\n"
+            - 문서종류: {docuType}\n
+            - 연차 시작일: {startDate}\n
+            - 연차 종료일: {endDate}\n
+            - 사유: {reason}\n"
 
     - condition:
         - type: slot
           name: docuType
           value: "반차"
       text: "결재자 승인 완료시까지 대기하여 주시기 바랍니다.\n
-            문서종류: {docuType}\n
-            반차일자: {startDate}\n
-            오전/오후: {utime}\n
-            사유: {reason}\n"
+            - 문서종류: {docuType}\n
+            - 반차일자: {startDate}\n
+            - 오전/오후: {utime}\n
+            - 사유: {reason}\n"
 
     - condition:
         - type: slot
           name: docuType
           value: "휴직"
       text: "결재자 승인 완료시까지 대기하여 주시기 바랍니다.\n
-            문서종류: {docuType}\n
-            휴직 시작일자: {startDate}\n
-            휴직 종료일자: {endDate}\n
-            사유: {reason}\n"
+            - 문서종류: {docuType}\n
+            - 휴직 시작일자: {startDate}\n
+            - 휴직 종료일자: {endDate}\n
+            - 사유: {reason}\n"
 
     - condition:
         - type: slot
           name: docuType
           value: "사직"
       text: "결재자 승인 완료시까지 대기하여 주시기 바랍니다.\n
-            문서종류: {docuType}\n
-            사직일자: {startDate}\n
-            사유: {reason}\n"
+            - 문서종류: {docuType}\n
+            - 사직일자: {startDate}\n
+            - 사유: {reason}\n"
   
   utter_ask_stop:
     - text: "문서작성을 종료할까요?"
@@ -204,6 +203,20 @@ responses:
               지원하는 기능 : 연차, 반차, 사직, 휴직"
   utter_restart:
     - text: "재시작됐습니다."
+  utter_name:
+    - text: "제 이름은 도우리에요! 반가워요!"
+    - text: "나는 도우리야! 반가워!"
+  utter_help:
+    - text: "도우리가 지원하는 기능은 아래와 같습니다. \n
+      연차\n
+      반차\n 
+      사직\n 
+      휴직"
+  utter_feel:
+    - text: "기분이 날아갈것만 같아요!"
+    - text: "기분이 너무너무 좋아!"
+    - text: "기분 최고야!"
+    - text: "너무좋아:)!"
 
 actions:
   - validate_dayoff_rest_form
@@ -212,6 +225,7 @@ actions:
   - action_default_fallback
   - action_react_to_reminder
   - action_set_reminder
+  - action_restart
 
 forms:
   dayoff_rest_form:
@@ -254,8 +268,6 @@ forms:
       reason:
         - type: from_text
 
-
-# 세션종료 (수동세션시작 : /session_start)
 session_config:
-  session_expiration_time: 5  # 비활성 시간을 분 단위로 정의 
-  carry_over_slots_to_new_session: true # 기존슬롯을 새 세션으로 이월해야 하는지 여부 결정 
+  session_expiration_time: 5  
+  carry_over_slots_to_new_session: true 

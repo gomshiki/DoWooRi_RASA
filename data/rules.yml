@@ -21,7 +21,7 @@ rules:
       - action: utter_docuType
       - action: halfoff_resign_form
       - active_loop: halfoff_resign_form
-
+      
    # 연차&휴직
   - rule : submit dayoff_rest form
     condition:
@@ -32,6 +32,7 @@ rules:
       - action: utter_success
       - action: utter_slots_values
       - action: submit_form
+      - action: action_restart
 
   # 반차&사직
   - rule : submit halff form
@@ -43,6 +44,7 @@ rules:
       - action: utter_success
       - action: utter_slots_values
       - action: submit_form
+      - action: action_restart
 
   - rule: thank
     steps:
@@ -54,3 +56,21 @@ rules:
     steps:
       - intent: nlu_fallback
       - action: utter_default
+
+  # 도우리 이름
+  - rule: name
+    steps:
+      - intent: name
+      - action: utter_name
+
+  # 도움말 
+  - rule: help
+    steps:
+      - intent: help
+      - action: utter_help
+
+  # 기분
+  - rule: feel
+    steps:
+      - intent: feel
+      - action: utter_feel
