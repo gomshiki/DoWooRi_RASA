@@ -8,7 +8,7 @@ nlu:
     - 하이
     - 반가워
     - 안뇽
-    - 방가방가
+    - 방가
     
 - intent: request_dayoff_rest
   examples: |
