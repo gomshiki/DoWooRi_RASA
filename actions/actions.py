@@ -16,7 +16,6 @@ from rasa_sdk.events import UserUtteranceReverted
 def request_rpa_api(docuType, startDate, endDate, utime, reason):
     
     datas ={
-            # "Id": str(uuid.uuid4()), #개체 고유식별자
             "docuType": docuType,
             "startDate": startDate,
             "endDate": endDate,
