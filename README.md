@@ -12,28 +12,25 @@
 
 ## 사용방법
 
-<div>
-<code>
+
 Anaconda 가상환경 설정
    - anaconda 다운로드
    - anaconda prompt 실행
-   - anaconda 가상환경 설정 -> conda create –n 가상환경이름 python==3.7.9 
+   - anaconda 가상환경 설정 -> conda create –n 가상환경이름 python==3.7.9   
    - 각종 라이브러리 설치 
-	pip 패키지 다운(-U : 최신버전으로 Update하라는 의미 / pip: 패키지 관리 시스템 )</span>	
-    빌드도구 설치하기 (wheel은 확장자명 .whl)
-	    pip install -U pip setuptools wheel
-    4-3)  RASA 다운로드
-    	pip install rasa==2.8.27 
-    4-4) 자연어 처리 라이브러리(SpaCy)
-	    pip install spacy
-    4-5) spacy 모델 다운로드
+	    	
+	pip install -U pip setuptools wheel
+    	4-3)  RASA 다운로드
+    		pip install rasa==2.8.27 
+    	4-4) 자연어 처리 라이브러리(SpaCy)
+		pip install spacy
+    	4-5) spacy 모델 다운로드
 	    pip install https://github.com/explosion/spacy-models/releases/download/xx_sent_ud_sm-3.2.0/xx_sent_ud_sm-3.2.0-py3-none-any.whl
 	    pip install https://github.com/explosion/spacy-models/releases/download/xx_sent_ud_sm-3.2.0/xx_sent_ud_sm-3.2.0.tar.gz
 	4-6) 한국어 spacy model 다운로드
 	    conda install –c conda-forge spacy-model-ko_core_news_sm
-    4-7) 한국어 처리를 위한 파이썬 패키지
+    	4-7) 한국어 처리를 위한 파이썬 패키지
 	    pip install konlpy
-    4-8) 형태소분석기(NLU 전처리 과정) 설치(하기 링크 참고)
-	    * Mecab 설치 링크 : https://hong-yp-ml-records.tistory.com/91
-	    </code>
-	    </div>
+    	4-8) 형태소분석기(NLU 전처리 과정) 설치(하기 링크 참고)
+	   설치 링크 : https://hong-yp-ml-records.tistory.com/91
+	    
