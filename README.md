@@ -1,50 +1,35 @@
-# Formbot
+# RASA 오픈 소스를 이용한 업무 비서 챗봇
 
-The `formbot` example is designed to help you understand how the `FormAction` works and how
-to implement it in practice. Using the code and data files in this directory, you
-can build a simple restaurant search assistant capable of recommending
-restaurants based on user preferences.
+챗봇을 이용해 기안문(연차, 반차, 사직, 휴직)을 작성하고, 웹페이지에서 결재할 수 있는 서비스 입니다.
 
-## What’s inside this example?
 
-This example contains some training data and the main files needed to build an
-assistant on your local machine. The `formbot` consists of the following files:
+## 개발 환경 및 사용 라이브러리
 
-- **data/nlu.yml** contains training examples for the NLU model
-- **data/stories.yml** contains training stories for the Core model
-- **actions/actions.py** contains the implementation of a custom `FormAction`
-- **config.yml** contains the model configuration
-- **domain.yml** contains the domain of the assistant
-- **endpoints.yml** contains the webhook configuration for the custom actions
+- OS : windows10
+- Anaconda 가상환경
+- Rasa 2.8.27
+- Mecab-konlpy
 
-## How to use this example?
-
-Using this example you can build an actual assistant which demonstrates the
-functionality of the `FormAction`. You can test the example using the following
-steps:
-
-1. Train a Rasa model containing the Rasa NLU and Rasa Core models by running:
-    ```
-    rasa train
-    ```
-    The model will be stored in the `/models` directory as a zipped file.
-
-2. Run an instance of [duckling](https://rasa.com/docs/rasa/nlu/components/#ducklingentityextractor)
-   on port 8000 by either running the docker command
-   ```
-   docker run -p 8000:8000 rasa/duckling
-   ```
-   or [installing duckling](https://github.com/facebook/duckling#requirements) directly on your machine and starting the server.
-
-3. Test the assistant by running:
-    ```
-    rasa run actions&
-    rasa shell -m models --endpoints endpoints.yml
-    ```
-    This will load the assistant in your command line for you to chat.
-
-For more information about the individual commands, please check out our
-[documentation](http://rasa.com/docs/rasa/command-line-interface).
-
-## Encountered any issues?
-Let us know about it by posting on [Rasa Community Forum](https://forum.rasa.com)!
+## 사용방법
+1. Anaconda 가상환경 설정
+   1) anaconda 다운로드
+   2) anaconda prompt 실행
+   3) anaconda 가상환경 설정 -> conda create –n 가상환경이름 python==3.7.9 
+   4) 각종 라이브러리 설치 
+    4-1) pip 패키지 다운(-U : 최신버전으로 Update하라는 의미 / pip: 패키지 관리 시스템 )
+	     pip install –U pip 
+     4-2) 빌드도구 설치하기 (wheel은 확장자명 .whl)
+	    pip install -U pip setuptools wheel
+    4-3)  RASA 다운로드
+    	pip install rasa==2.8.27 
+    4-4) 자연어 처리 라이브러리(SpaCy)
+	    pip install spacy
+    4-5) spacy 모델 다운로드
+	    pip install https://github.com/explosion/spacy-models/releases/download/xx_sent_ud_sm-3.2.0/xx_sent_ud_sm-3.2.0-py3-none-any.whl
+	    pip install https://github.com/explosion/spacy-models/releases/download/xx_sent_ud_sm-3.2.0/xx_sent_ud_sm-3.2.0.tar.gz
+	4-6) 한국어 spacy model 다운로드
+	    conda install –c conda-forge spacy-model-ko_core_news_sm
+    4-7) 한국어 처리를 위한 파이썬 패키지
+	    pip install konlpy
+    4-8) 형태소분석기(NLU 전처리 과정) 설치(하기 링크 참고)
+	    * Mecab 설치 링크 : https://hong-yp-ml-records.tistory.com/91
