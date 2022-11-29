@@ -34,7 +34,7 @@
 	형태소분석기(mecab) 설치
 	설치 링크 : https://hong-yp-ml-records.tistory.com/91
 	    
-## 본 프로젝트 custom_tokenizer.py 옮기기
+## custom_tokenizer.py 옮기기
     - 경로 : C:\Users\[사용자]\anaconda3\envs\[가상환경]\Lib\site-packages\rasa\nlu\tokenizers
     
 ## Anaconda prompt로 Rasa 실행하기
