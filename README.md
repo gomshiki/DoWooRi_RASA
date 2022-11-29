@@ -12,8 +12,7 @@
 
 ## 사용방법
 
-
-Anaconda 가상환경 설정
+### Anaconda 가상환경 설정
    - anaconda 다운로드
    - anaconda prompt 실행
    - anaconda 가상환경 설정 -> conda create –n 가상환경이름 python==3.7.9   
@@ -26,12 +25,20 @@ Anaconda 가상환경 설정
     	
 	pip install https://github.com/explosion/spacy-models/releases/download/xx_sent_ud_sm-3.2.0/xx_sent_ud_sm-3.2.0-py3-none-any.whl (space 모델 설치)
 	
-	pip install https://github.com/explosion/spacy-models/releases/download/xx_sent_ud_sm-3.2.0/xx_sent_ud_sm-3.2.0.tar.gz
+	pip install https://github.com/explosion/spacy-models/releases/download/xx_sent_ud_sm-3.2.0/xx_sent_ud_sm-3.2.0.tar.gz (space 모델 설치)
 	
 	conda install –c conda-forge spacy-model-ko_core_news_sm (한국어 spacy 모델 설치)
     	
 	pip install konlpy (형태소 분석기 라이브러리 설치)
     	
-	형태소분석기(NLU 전처리 과정) 설치(하기 링크 참고)
+	형태소분석기(mecab) 설치
 	설치 링크 : https://hong-yp-ml-records.tistory.com/91
 	    
+## 본 프로젝트 custom_tokenizer.py 옮기기
+    - 경로 : C:\Users\[사용자]\anaconda3\envs\[가상환경]\Lib\site-packages\rasa\nlu\tokenizers
+    
+## Anaconda prompt로 Rasa 실행하기
+    - prompt 창 두개 실행 후 RASA가 설치된 가상환경 실행
+    - prompt 각 창에 아래 명령어 실행
+    	rasa run actions
+	rasa run -m model --enable-api --cors "*" -vv
