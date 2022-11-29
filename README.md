@@ -20,7 +20,6 @@ Anaconda 가상환경 설정
    - 각종 라이브러리 설치 
 	    	
 	pip install -U pip setuptools wheel (pip 업데이트)
-    	 
     	pip install rasa==2.8.27 (RASA 설치)
     	
 	pip install spacy (spacy 모델 설치)
